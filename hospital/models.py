@@ -6,3 +6,10 @@ class Hospital(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    hospital = models.ForeignKey(Hospital)
+
+    def __str__(self):
+        return f'{self.hospital.name} - {self.name}'
