@@ -35,3 +35,27 @@ class HospitalWorker(models.Model):
     def __str__(self):
         return f'{self.positon} {self.name}'
     
+class Patient(models.Model):
+    GENDER_CHOICES = (
+        ('M', "Male"),
+        ('F', 'Female'),
+        ('O', 'Other')
+    )
+
+    name = models.CharField(max_length=200)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    department = models.ForeignKey(Department)
+
+class MedicalExaminationResult(models.Model):
+    EXAMINATION_RESULTS = (
+        ('healthy', 'Healthy'),
+        ('corona', 'Corona'),
+        ('botism', 'Botism'),
+        ('dead', 'Dead')
+    )
+    
+    patient = models.ForeignKey(Patient)
+    performer = models.ForeignKey(HospitalWorker)
+    time = models.DateTimeField()
+    result = models.CharField(max_length=10, choices=EXAMINATION_RESULTS)
