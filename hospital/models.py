@@ -9,7 +9,7 @@ class Hospital(models.Model):
     
 class Department(models.Model):
     name = models.CharField(max_length=200)
-    hospital = models.ForeignKey(Hospital)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.hospital.name} - {self.name}'
@@ -45,7 +45,7 @@ class Patient(models.Model):
     name = models.CharField(max_length=200)
     age = models.IntegerField()
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    department = models.ForeignKey(Department)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
 class MedicalExaminationResult(models.Model):
     EXAMINATION_RESULTS = (
@@ -55,7 +55,7 @@ class MedicalExaminationResult(models.Model):
         ('dead', 'Dead')
     )
     
-    patient = models.ForeignKey(Patient)
-    performer = models.ForeignKey(HospitalWorker)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    performer = models.ForeignKey(HospitalWorker, on_delete=models.CASCADE)
     time = models.DateTimeField()
     result = models.CharField(max_length=10, choices=EXAMINATION_RESULTS)
