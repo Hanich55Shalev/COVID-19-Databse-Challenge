@@ -47,6 +47,9 @@ class Patient(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'Patient {self.name} ({self.gender}, {self.age})'
+
 class MedicalExaminationResult(models.Model):
     EXAMINATION_RESULTS = (
         ('healthy', 'Healthy'),
@@ -59,3 +62,6 @@ class MedicalExaminationResult(models.Model):
     performer = models.ForeignKey(HospitalWorker, on_delete=models.CASCADE)
     time = models.DateTimeField()
     result = models.CharField(max_length=10, choices=EXAMINATION_RESULTS)
+
+    def __str__(self):
+        return f'{self.time}: Result for {self.patient.name} - {self.result}'
